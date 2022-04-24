@@ -8,10 +8,10 @@ from mrcnn.m_rcnn import *
 
 face_detector = dlib.get_frontal_face_detector()
 
-datFile =  "content/shape_predictor_68_face_landmarks.dat"
+datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 landmark_detector = dlib.shape_predictor(datFile)
 
-img_path = "testdlib2.jpg"
+img_path = "PROJECT/testdlib2.jpg"
  
 #read with dlib
 img = dlib.load_rgb_image(img_path)
@@ -69,9 +69,9 @@ mask = mask.astype(np.bool)
 out = np.zeros_like(img)
 out[mask] = img[mask]
 
-imsave('file.jpg',out)
+imsave('PROJECT/file.jpg',out)
 
-img = cv2.imread('file.jpg', 0)
+img = cv2.imread('PROJECT/file.jpg', 0)
 
 face_area = cv2.countNonZero(img)
 
@@ -86,13 +86,13 @@ n_total = height * width
 
 #---------------------------------------------------------------------------------------------------------------
 
-img = cv2.imread("file.jpg")
+img = cv2.imread("PROJECT/file.jpg")
 
 # test_model = model.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
 # WEIGHTS_PATH = "model_acne.h5"
 # test_model.load_weights(WEIGHTS_PATH, by_name=True)
 
-test_model, inference_config = load_inference_model(1, "content/Model/Melesma/w_melesma.h5")
+test_model, inference_config = load_inference_model(1, "PROJECT/content/Model/Melesma/w_melesma.h5")
 
 image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
