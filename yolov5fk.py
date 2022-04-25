@@ -34,7 +34,8 @@ class MugDetection:
         :return: Trained Pytorch model.
         """
         if model_name:
-            model = torch.hub.load('suradech444/yolov5', 'custom', path=model_name, force_reload=True)
+            model = torch.hub.load('ultralytics/yolov5', 'yolov5s', classes=1)
+            model.load_state_dict(torch.load('yolov5/best.pt')['model'].state_dict())
         else:
             model = torch.hub.load('suradech444/yolov5', 'yolov5s', pretrained=True)
         return model
