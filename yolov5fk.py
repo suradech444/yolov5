@@ -74,8 +74,7 @@ class MugDetection:
             if row[4] >= 0.3:
                 x1, y1, x2, y2 = int(row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*y_shape)
                 bgr = (0, 255, 0)
-                cv2.rectangle(frame, (x1, y1), (x2, y2), bgr, 2)
-                cv2.putText(frame, self.class_to_label(labels[i]), (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.9, bgr, 2)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), bgr, -1)
 
         return frame
 
@@ -85,32 +84,38 @@ class MugDetection:
         and write the output into a new file.
         :return: void
         """
-        cap = self.get_video_capture()
-        assert cap.isOpened()
-      
-        while True:
+        frame = cv2.imread("PROJECT/file.jpg")
+
+        results = self.score_frame(frame)
+        frame = self.plot_boxes(results, frame)
+
+        cv2.imshow('YOLOv5 Detection', frame)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+        # while True:
           
-            ret, frame = cap.read()
-            assert ret
+        #     ret, frame = cap.read()
+        #     assert ret
             
-            frame = cv2.resize(frame, (416,416))
+        #     frame = cv2.resize(frame, (416,416))
             
-            start_time = time()
-            results = self.score_frame(frame)
-            frame = self.plot_boxes(results, frame)
+        #     start_time = time()
+        #     results = self.score_frame(frame)
+        #     frame = self.plot_boxes(results, frame)
             
-            end_time = time()
-            fps = 1/np.round(end_time - start_time, 2)
-            #print(f"Frames Per Second : {fps}")
+        #     end_time = time()
+        #     fps = 1/np.round(end_time - start_time, 2)
+        #     #print(f"Frames Per Second : {fps}")
              
-            cv2.putText(frame, f'FPS: {int(fps)}', (20,70), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0,255,0), 2)
+        #     cv2.putText(frame, f'FPS: {int(fps)}', (20,70), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0,255,0), 2)
             
-            cv2.imshow('YOLOv5 Detection', frame)
+        #     cv2.imshow('YOLOv5 Detection', frame)
  
-            if cv2.waitKey(5) & 0xFF == 27:
-                break
+        #     if cv2.waitKey(5) & 0xFF == 27:
+        #         break
       
-        cap.release()
+        # cap.release()
         
         
 # Create a new object and execute.
