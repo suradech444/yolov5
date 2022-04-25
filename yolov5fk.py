@@ -75,7 +75,7 @@ class MugDetection:
                 x1, y1, x2, y2 = int(row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*y_shape)
                 bgr = (0, 255, 0)
                 cv2.rectangle(frame, (x1, y1), (x2, y2), bgr, -1)
-
+                
         return frame
 
     def __call__(self):
@@ -84,7 +84,7 @@ class MugDetection:
         and write the output into a new file.
         :return: void
         """
-        frame = cv2.imread("PROJECT/file.jpg")
+        frame = cv2.imread("PROJECT/testfk.jpg")
 
         results = self.score_frame(frame)
         frame = self.plot_boxes(results, frame)
