@@ -12,7 +12,7 @@ face_detector = dlib.get_frontal_face_detector()
 datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 landmark_detector = dlib.shape_predictor(datFile)
 
-img_path = "test/3.jpg"
+img_path = "test/22.jpg"
  
 #read with dlib
 img = dlib.load_rgb_image(img_path)
@@ -71,6 +71,19 @@ out = np.zeros_like(img)
 out[mask] = img[mask]
 
 imsave('PROJECT/file.jpg',out)
+
+img = cv2.imread('PROJECT/file.jpg', 0)
+
+face_area = cv2.countNonZero(img)
+
+# print("Number of dark pixels:")
+# print(face_area)
+
+height, width = img.shape
+n_total = height * width
+
+# print("Percentage of dark pixels:")
+# print(face_area / n_total * 100)
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -141,14 +154,48 @@ for i in indexes:
     result_class_ids.append(class_ids[i])
     result_boxes.append(boxes[i])
 
+areaacne = 0
+count = 0
 for i in range(len(result_class_ids)):
 
     box = result_boxes[i]
     class_id = result_class_ids[i]
 
     cv2.rectangle(image, box, (0, 255, 0), -1)
+
+    lower_range = np.array([50, 220, 20])   
+    upper_range = np.array([100, 255, 255])
+ 
+    mask = cv2.inRange(image, lower_range, upper_range)
+
+    n_black = cv2.countNonZero(mask)
+    print(n_black)
+
+    areaacne = areaacne + n_black
+
+    count+=1
+
     #cv2.rectangle(image, (box[0], box[1] - 20), (box[0] + box[2], box[1]), (0, 255, 0), -1)
 
+print(count)
+
+# imsave('PROJECT/mask2.jpg',image)
+
+print("Area of pic")
+print(n_total)
+
+print("Face area pixels:")
+print(face_area)
+
+print("Percentage of face pixels:")
+print(face_area / n_total * 100)
+
+print("area freckles pixels:")
+print(areaacne)
+
+percent = areaacne/face_area *100
+
+print("PERCENT : "'%.2f' %(percent))
 
 imsave("misc/kids_detection.png", image)
 cv2.imshow("output", image)

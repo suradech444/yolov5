@@ -130,7 +130,9 @@ for i in range(object_count):
 plt.imshow(img)
 plt.show()
 
-# print(count)
+print(count)
+
+imsave('PROJECT/mask.jpg',mask)
 
 print("Area of pic")
 print(n_total)
