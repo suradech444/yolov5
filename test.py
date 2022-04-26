@@ -3,13 +3,18 @@ import torch
 from torchvision import models
 from skimage.io import imsave, imread
 from PIL import Image
-
-model = torch.hub.load('suradech444/yolov5', 'custom', path='w/best.pt')
-
+import matplotlib.pyplot as plt
 
 
+PATH = 'w/best.pt'
+model = torch.hub.load('suradech444/yolov5s', 'yolov5s', pretrained=False)
+model.load_state_dict(torch.load(PATH))
+
+# Image
 img = cv2.imread('test/testfk.jpg')
-output = model(img)
 
-imsave('PROJECT/file.jpg',output)
-print(f'prediction: {output.pred}')
+# Inference
+results = model(img) # pass the image through our model
+
+results.pandas().xyxy[0]
+results.print()
