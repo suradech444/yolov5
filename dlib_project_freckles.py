@@ -1,7 +1,9 @@
 import numpy as np
 import cv2
+from skimage.io import imsave, imread
 
 # step 1 - load the model
+
 
 net = cv2.dnn.readNet('w2/best.onnx')
 
@@ -15,7 +17,7 @@ def format_yolov5(frame):
     result[0:row, 0:col] = frame
     return result
 
-image = cv2.imread('test/1.png', 0)
+image = cv2.imread('test/3.jpg')
 input_image = format_yolov5(image) # making the image square
 blob = cv2.dnn.blobFromImage(input_image , 1/255.0, (640, 640), swapRB=True)
 net.setInput(blob)
@@ -78,6 +80,7 @@ for i in range(len(result_class_ids)):
     cv2.rectangle(image, box, (0, 255, 0), -1)
     #cv2.rectangle(image, (box[0], box[1] - 20), (box[0] + box[2], box[1]), (0, 255, 0), -1)
 
-cv2.imwrite("misc/kids_detection.png", image)
+
+imsave("misc/kids_detection.png", image)
 cv2.imshow("output", image)
 cv2.waitKey()
