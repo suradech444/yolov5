@@ -12,7 +12,7 @@ face_detector = dlib.get_frontal_face_detector()
 datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 landmark_detector = dlib.shape_predictor(datFile)
 
-img_path = "test/22.jpg"
+img_path = "test/3.jpg"
  
 #read with dlib
 img = dlib.load_rgb_image(img_path)
