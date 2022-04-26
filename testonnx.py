@@ -1,45 +1,83 @@
-import caffe2.python.onnx.backend as backend
-import onnx
-from IPython.display import Image, display
-import torch
 import numpy as np
+import cv2
 
-# First load the onnx model
-model = onnx.load("animals_caltech.onnx")
+# step 1 - load the model
 
-# Prepare the backend
-rep = backend.prepare(model, device="CPU")
+net = cv2.dnn.readNet('w2/best.onnx')
 
-# Transform the image
-transform = transforms.Compose([
-        transforms.Resize(size=224),
-        transforms.CenterCrop(size=224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406],
-                             [0.229, 0.224, 0.225])
-    ])
+# step 2 - feed a 640x640 image to get predictions
 
-# Load and show the image
-test_image_name = "giraffe.jpg"
-test_image = Image.open(test_image_name)
-display(test_image)
+def format_yolov5(frame):
 
-# Apply the transformations to the input image and convert it into a tensor
-test_image_tensor = transform(test_image)
+    row, col, _ = frame.shape
+    _max = max(col, row)
+    result = np.zeros((_max, _max, 3), np.uint8)
+    result[0:row, 0:col] = frame
+    return result
 
-# Make the input image ready to be input as a batch of size 1
-test_image_tensor = test_image_tensor.view(1, 3, 224, 224)
+image = cv2.imread('test/1.png', 0)
+input_image = format_yolov5(image) # making the image square
+blob = cv2.dnn.blobFromImage(input_image , 1/255.0, (640, 640), swapRB=True)
+net.setInput(blob)
+predictions = net.forward()
 
-# Convert the tensor to numpy array
-np_image = test_image_tensor.numpy()
+# step 3 - unwrap the predictions to get the object detections 
 
-# Pass the numpy array to run through the ONNX model
-outputs = rep.run(np_image.astype(np.float32))
+class_ids = []
+confidences = []
+boxes = []
 
-# Dictionary with class name and index
-idx_to_class = {0: 'bear', 1: 'chimp', 2: 'giraffe', 3: 'gorilla', 4: 'llama', 5: 'ostrich', 6: 'porcupine', 7: 'skunk', 8: 'triceratops', 9: 'zebra'}
+output_data = predictions[0]
 
-ps = torch.exp(torch.from_numpy(outputs[0]))
-topk, topclass = ps.topk(10, dim=1)
-for i in range(10):
-    print("Prediction", '{:2d}'.format(i+1), ":", '{:11}'.format(idx_to_class[topclass.cpu().numpy()[0][i]]), ", Class Id : ", topclass[0][i].numpy(), " Score: ", topk.cpu().detach().numpy()[0][i])
+image_width, image_height, _ = input_image.shape
+x_factor = image_width / 640
+y_factor =  image_height / 640
+
+for r in range(25200):
+    row = output_data[r]
+    confidence = row[4]
+    if confidence >= 0.4:
+
+        classes_scores = row[5:]
+        _, _, _, max_indx = cv2.minMaxLoc(classes_scores)
+        class_id = max_indx[1]
+        if (classes_scores[class_id] > .25):
+
+            confidences.append(confidence)
+
+            class_ids.append(class_id)
+
+            x, y, w, h = row[0].item(), row[1].item(), row[2].item(), row[3].item() 
+            left = int((x - 0.5 * w) * x_factor)
+            top = int((y - 0.5 * h) * y_factor)
+            width = int(w * x_factor)
+            height = int(h * y_factor)
+            box = np.array([left, top, width, height])
+            boxes.append(box)
+
+class_list = []
+with open("text/classes.txt", "r") as f:
+    class_list = [cname.strip() for cname in f.readlines()]
+
+indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.25, 0.45) 
+
+result_class_ids = []
+result_confidences = []
+result_boxes = []
+
+for i in indexes:
+    result_confidences.append(confidences[i])
+    result_class_ids.append(class_ids[i])
+    result_boxes.append(boxes[i])
+
+for i in range(len(result_class_ids)):
+
+    box = result_boxes[i]
+    class_id = result_class_ids[i]
+
+    cv2.rectangle(image, box, (0, 255, 0), -1)
+    #cv2.rectangle(image, (box[0], box[1] - 20), (box[0] + box[2], box[1]), (0, 255, 0), -1)
+
+cv2.imwrite("misc/kids_detection.png", image)
+cv2.imshow("output", image)
+cv2.waitKey()

@@ -5,7 +5,7 @@ from skimage.io import imsave, imread
 from PIL import Image
 import matplotlib.pyplot as plt
 
-model = torch.hub.load('', 'custom', path='w1/best.onnx', source='local')
+model = torch.hub.load('', 'custom', path='w1/best.pt', source='local')
 
 # Image
 img = cv2.imread('test/testfk.jpg')

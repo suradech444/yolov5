@@ -5,6 +5,7 @@ import torch.nn.functional as f
 import numpy as np
 import cv2
 from time import time
+import onnx
 
 class MugDetection:
 
@@ -19,7 +20,7 @@ class MugDetection:
     def load_model(self, model_name):
 
         if model_name:
-            model = torch.hub.load('suradech444/yolov5', 'custom', path=model_name, force_reload=True)
+            model = torch.hub.load('suradech444/yolov5', 'custom', path='we/best.pt', force_reload=True)
         else:
             model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
         return model
