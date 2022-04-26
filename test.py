@@ -5,10 +5,7 @@ from skimage.io import imsave, imread
 from PIL import Image
 import matplotlib.pyplot as plt
 
-
-PATH = 'w/best.pt'
-model = torch.hub.load('suradech444/yolov5s', 'yolov5s', pretrained=False)
-model.load_state_dict(torch.load(PATH))
+model = torch.hub.load('', 'custom', path='w1/best.onnx', source='local')
 
 # Image
 img = cv2.imread('test/testfk.jpg')
