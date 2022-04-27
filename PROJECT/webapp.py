@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imsave, imread
 from mrcnn.m_rcnn import *
-import onnx
 
 def load_image(image_file):
         
@@ -15,14 +14,14 @@ def load_image(image_file):
 	return img
 
 def acne_detect():
+    
     face_detector = dlib.get_frontal_face_detector()
 
     datFile =  "content/shape_predictor_68_face_landmarks.dat"
     landmark_detector = dlib.shape_predictor(datFile)
 
-    img_path = "testdlib2.jpg"
- 
-    #read with dlib
+    img_path = "imgdetectacne/imgdetect.jpg"
+
     img = dlib.load_rgb_image(img_path)
 
     faces = face_detector(img, 1)
@@ -140,7 +139,7 @@ def freckles_detect():
     datFile =  "content/shape_predictor_68_face_landmarks.dat"
     landmark_detector = dlib.shape_predictor(datFile)
 
-    img_path = "test/3.jpg"
+    img_path = "imgdetectfk/imgdetect.jpg"
  
     img = dlib.load_rgb_image(img_path)
 
@@ -149,11 +148,11 @@ def freckles_detect():
     landmark_tuple = []
     for k, d in enumerate(faces):
         landmarks = landmark_detector(img, d)
-    for n in range(0, 27):
-        x = landmarks.part(n).x
-        y = landmarks.part(n).y
-        landmark_tuple.append((x, y))
-        cv2.circle(img, (x, y), 2, (255, 255, 0), -1)
+        for n in range(0, 27):
+            x = landmarks.part(n).x
+            y = landmarks.part(n).y
+            landmark_tuple.append((x, y))
+            cv2.circle(img, (x, y), 2, (255, 255, 0), -1)
 
     routes = []
  
@@ -206,7 +205,7 @@ def freckles_detect():
     height, width = img.shape
     n_total = height * width
 
-    net = onnx.load('w2/best.onnx')
+    net = cv2.dnn.readNet('w2/best.onnx')
 
     def format_yolov5(frame):
 
@@ -219,9 +218,7 @@ def freckles_detect():
     image = cv2.imread('file.jpg')
     input_image = format_yolov5(image) # making the image square
     blob = cv2.dnn.blobFromImage(input_image , 1/255.0, (640, 640), swapRB=True)
-
     net.setInput(blob)
-
     predictions = net.forward()
 
     class_ids = []
@@ -304,7 +301,7 @@ def melesma_detect():
     datFile =  "content/shape_predictor_68_face_landmarks.dat"
     landmark_detector = dlib.shape_predictor(datFile)
 
-    img_path = "testdlib2.jpg"
+    img_path = "imgdetectmelesma/imgdetect.jpg"
  
     #read with dlib
     img = dlib.load_rgb_image(img_path)
@@ -427,6 +424,14 @@ if model_choice == 'Acne':
     
     st.title("Acne")
     st.write("Acne on bottom jame")
+    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    imgname = "imgdetect.jpg"
+    if image_file is not None:
+        st.image(load_image(image_file),width=300)
+        with open(os.path.join("imgdetectacne",imgname),"wb") as f: 
+            f.write(image_file.getbuffer())         
+        st.success("Upload Success")
+
     if st.button('Analysis'):
         acne_detect()
 
@@ -434,6 +439,14 @@ elif model_choice == 'Freckles':
 
     st.title("Freckles")
     st.write("Freckles on bottom jame")
+    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    imgname = "imgdetect.jpg"
+    if image_file is not None:
+        st.image(load_image(image_file),width=300)
+        with open(os.path.join("imgdetectfk",imgname),"wb") as f: 
+            f.write(image_file.getbuffer())         
+        st.success("Upload Success")
+
     if st.button('Analysis'):
         freckles_detect()
     
@@ -441,5 +454,15 @@ elif model_choice == 'Melesma':
 
     st.title("Melesma")
     st.write("Melesma on bottom jame")
+    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    imgname = "imgdetect.jpg"
+    if image_file is not None:
+        st.image(load_image(image_file),width=300)
+        with open(os.path.join("imgdetectmelesma",imgname),"wb") as f: 
+            f.write(image_file.getbuffer())         
+        st.success("Upload Success")
+
+    if st.button("Analysis"):
+        melesma_detect()
 
     

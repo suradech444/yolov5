@@ -87,7 +87,7 @@ n_total = height * width
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-net = cv2.dnn.readNet('w2/best.onnx')
+net = cv2.dnn.readNet('PROJECT/w2/best.onnx')
 
 # step 2 - feed a 640x640 image to get predictions
 
