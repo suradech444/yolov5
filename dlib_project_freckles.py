@@ -4,6 +4,7 @@ from skimage.io import imsave, imread
 from pickle import NONE
 import dlib
 import matplotlib.pyplot as plt
+import streamlit
 
 # step 1 - load the model
 
