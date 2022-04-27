@@ -4,7 +4,6 @@ from skimage.io import imsave, imread
 from pickle import NONE
 import dlib
 import matplotlib.pyplot as plt
-import streamlit
 
 # step 1 - load the model
 
@@ -13,7 +12,7 @@ face_detector = dlib.get_frontal_face_detector()
 datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 landmark_detector = dlib.shape_predictor(datFile)
 
-img_path = "test/3.jpg"
+img_path = "PROJECT/test/3.jpg"
  
 #read with dlib
 img = dlib.load_rgb_image(img_path)
@@ -141,7 +140,7 @@ for r in range(25200):
             boxes.append(box)
 
 class_list = []
-with open("text/classes.txt", "r") as f:
+with open("PROJECT/text/classes.txt", "r") as f:
     class_list = [cname.strip() for cname in f.readlines()]
 
 indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.25, 0.45) 
