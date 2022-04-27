@@ -1,6 +1,5 @@
 import os
 import tensorflow as tf
-from imageai.Detection.Custom import CustomObjectDetection
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 from keras.models import load_model
