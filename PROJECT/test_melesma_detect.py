@@ -1,15 +1,18 @@
-from mrcnn.m_rcnn import *
-import matplotlib.pyplot as plt
+from pickle import NONE
 import cv2
+import dlib
+import matplotlib.pyplot as plt
+import numpy as np
+from skimage.io import imsave, imread
+from mrcnn.m_rcnn import *
 
-
-img = cv2.imread("file.jpg")
+img = cv2.imread("PROJECT/test/2.jpg")
 
 # test_model = model.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
 # WEIGHTS_PATH = "model_acne.h5"
 # test_model.load_weights(WEIGHTS_PATH, by_name=True)
 
-test_model, inference_config = load_inference_model(1, "content/Model/Acne/model_acne.h5")
+test_model, inference_config = load_inference_model(1, "PROJECT/content/Model/Melesma/w_melesma.h5")
 
 image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -44,10 +47,5 @@ for i in range(object_count):
 
     count+=1
 
-
 plt.imshow(img)
 plt.show()
-
-print(count)
-print("Number of dark pixels:")
-print(areaacne)

@@ -12,7 +12,7 @@ face_detector = dlib.get_frontal_face_detector()
 datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 landmark_detector = dlib.shape_predictor(datFile)
 
-img_path = "PROJECT/test/3.jpg"
+img_path = "PROJECT/test/a_2.jpg"
  
 #read with dlib
 img = dlib.load_rgb_image(img_path)
@@ -99,7 +99,7 @@ def format_yolov5(frame):
     result[0:row, 0:col] = frame
     return result
 
-image = cv2.imread('PROJECT/file.jpg')
+image = cv2.imread('PROJECT/unknown (2).png')
 input_image = format_yolov5(image) # making the image square
 blob = cv2.dnn.blobFromImage(input_image , 1/255.0, (640, 640), swapRB=True)
 net.setInput(blob)
@@ -175,11 +175,7 @@ for i in range(len(result_class_ids)):
 
     count+=1
 
-    #cv2.rectangle(image, (box[0], box[1] - 20), (box[0] + box[2], box[1]), (0, 255, 0), -1)
-
 print(count)
-
-# imsave('PROJECT/mask2.jpg',image)
 
 print("Area of pic")
 print(n_total)

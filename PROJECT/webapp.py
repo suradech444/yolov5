@@ -414,8 +414,7 @@ def melesma_detect():
 
     return
 
-
-st.sidebar.header('CJAME FAMILY')
+st.sidebar.header('APPLICATION SKIN TEST BY MOBILE CAMERA')
 st.sidebar.header('Choose Prediction Model')
 
 model_choice = st.sidebar.selectbox('Select Prediction Model', ['Acne', 'Freckles', 'Melesma'], key='1')
@@ -423,7 +422,6 @@ model_choice = st.sidebar.selectbox('Select Prediction Model', ['Acne', 'Freckle
 if model_choice == 'Acne':
     
     st.title("Acne")
-    st.write("Acne on bottom jame")
     image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
@@ -438,7 +436,6 @@ if model_choice == 'Acne':
 elif model_choice == 'Freckles':
 
     st.title("Freckles")
-    st.write("Freckles on bottom jame")
     image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
@@ -453,7 +450,6 @@ elif model_choice == 'Freckles':
 elif model_choice == 'Melesma':
 
     st.title("Melesma")
-    st.write("Melesma on bottom jame")
     image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
