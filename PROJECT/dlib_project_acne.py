@@ -12,7 +12,7 @@ try :
    datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
    landmark_detector = dlib.shape_predictor(datFile)
 
-   img_path = "PROJECT/test/testfk.jpg"
+   img_path = "PROJECT/test/a_1.jpg"
  
    #read with dlib
    img = dlib.load_rgb_image(img_path)
@@ -101,6 +101,8 @@ else:
    test_model, inference_config = load_inference_model(1, "PROJECT/content/Model/Acne/model_acne.h5")
 
    image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+   # plt.imshow(image)
+   # plt.show()
 
    r = test_model.detect([image])[0]
 

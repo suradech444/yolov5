@@ -17,7 +17,6 @@ def acne_detect():
 
     try:
         face_detector = dlib.get_frontal_face_detector()
-
         datFile =  "content/shape_predictor_68_face_landmarks.dat"
         landmark_detector = dlib.shape_predictor(datFile)
 
@@ -81,9 +80,10 @@ def acne_detect():
         imsave('file.jpg',out)
 
     except:
-        print("Invalid")
+        st.error('PICTURE INVALID')
 
     else:
+        st.success("Upload Success")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -134,18 +134,38 @@ def acne_detect():
 
             percent = areaacne/face_area *100
 
-            st.text("PERCENT : "'%.2f' %(percent))
+            image_hp = Image.open('emoji/happy.png')
+            image_calm = Image.open('emoji/calm.png')
+            image_sad = Image.open('emoji/sad.png')
+
+            if percent < 3:
+                st.text("Score : GOOD")
+                st.image(image_hp, width = 100)
+
+                # print("GOOD")
+            
+            elif percent > 3 and percent < 5:
+                st.text("Score : NORMAL")
+                st.image(image_calm, width = 100)
+                # print("normal")
+
+            elif percent > 5:
+                st.text("Score : BAD")
+                st.image(image_sad, width = 100)
+                # print("BAD")
 
             return
 
         except:
-            print("Acne = 0")
+            image_hp = Image.open('emoji/happy.png')
+
+            st.text("Score : GOOD")
+            st.image(image_hp, width = 100)
 
 def freckles_detect():
     
     try:
         face_detector = dlib.get_frontal_face_detector()
-
         datFile =  "content/shape_predictor_68_face_landmarks.dat"
         landmark_detector = dlib.shape_predictor(datFile)
 
@@ -209,9 +229,11 @@ def freckles_detect():
         imsave('file.jpg',out)
 
     except:
-        print("Invalid")
+        st.error('PICTURE INVALID')
+        #print("Invalid")
 
     else:
+        st.success("Upload Success")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -305,18 +327,40 @@ def freckles_detect():
 
             percent = areaacne/face_area *100
 
-            st.text("PERCENT : "'%.2f' %(percent))
+            image_hp = Image.open('emoji/happy.png')
+            image_calm = Image.open('emoji/calm.png')
+            image_sad = Image.open('emoji/sad.png')
+
+            if percent < 3:
+                st.text("Score : GOOD")
+                st.image(image_hp, width = 100)
+                
+                # print("GOOD")
+            
+            elif percent > 3 and percent < 5:
+                st.text("Score : NORMAL")
+                st.image(image_calm, width = 100)
+
+                # print("normal")
+
+            elif percent > 5:
+                st.text("Score : BAD")
+                st.image(image_sad, width = 100)
+
+                # print("BAD")
 
             return
 
         except:
-            print("Freckle = 0")
+            image_hp = Image.open('emoji/happy.png')
+
+            st.text("Score : GOOD")
+            st.image(image_hp, width = 100)
 
 def melesma_detect():
 
     try:
         face_detector = dlib.get_frontal_face_detector()
-
         datFile =  "content/shape_predictor_68_face_landmarks.dat"
         landmark_detector = dlib.shape_predictor(datFile)
 
@@ -381,9 +425,11 @@ def melesma_detect():
         imsave('file.jpg',out)
 
     except:
-        print("Invalid")
+        st.error('PICTURE INVALID')
+        #print("Invalid")
 
     else:
+        st.success("Upload Success")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -434,12 +480,32 @@ def melesma_detect():
 
             percent = areaacne/face_area *100
 
-            st.text("PERCENT : "'%.2f' %(percent))
+            image_hp = Image.open('emoji/happy.png')
+            image_calm = Image.open('emoji/calm.png')
+            image_sad = Image.open('emoji/sad.png')
+
+            if percent < 3:
+                st.text("Score : GOOD")
+                st.image(image_hp, width = 100)
+                # print("GOOD")
+            
+            elif percent > 3 and percent < 5:
+                st.text("Score : NORMAL")
+                st.image(image_calm, width = 100)
+                # print("normal")
+
+            elif percent > 5:
+                st.text("Score : BAD")
+                st.image(image_sad, width = 100)
+                # print("BAD")
 
             return
 
         except:
-            print("Melesma = 0")
+            image_hp = Image.open('emoji/happy.png')
+
+            st.text("Score : GOOD")
+            st.image(image_hp, width = 100)
 
 st.sidebar.header('APPLICATION SKIN TEST BY MOBILE CAMERA')
 st.sidebar.header('Choose Prediction Model')
@@ -455,7 +521,6 @@ if model_choice == 'Acne':
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectacne",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
-        st.success("Upload Success")
 
     if st.button('Analysis'):
         acne_detect()
@@ -469,7 +534,6 @@ elif model_choice == 'Freckles':
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectfk",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
-        st.success("Upload Success")
 
     if st.button('Analysis'):
         freckles_detect()
@@ -483,7 +547,6 @@ elif model_choice == 'Melesma':
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectmelesma",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
-        st.success("Upload Success")
 
     if st.button("Analysis"):
         melesma_detect()
