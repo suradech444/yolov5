@@ -12,7 +12,7 @@ try :
    datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
    landmark_detector = dlib.shape_predictor(datFile)
 
-   img_path = "PROJECT/test/a_1.jpg"
+   img_path = "PROJECT/test/testdlib2.jpg"
  
    #read with dlib
    img = dlib.load_rgb_image(img_path)

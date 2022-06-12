@@ -145,7 +145,7 @@ def acne_detect():
                 # print("GOOD")
             
             elif percent > 3 and percent < 5:
-                st.text("Score : NORMAL")
+                st.text("Score : MEDIUM")
                 st.image(image_calm, width = 100)
                 # print("normal")
 
@@ -338,7 +338,7 @@ def freckles_detect():
                 # print("GOOD")
             
             elif percent > 3 and percent < 5:
-                st.text("Score : NORMAL")
+                st.text("Score : MEDIUM")
                 st.image(image_calm, width = 100)
 
                 # print("normal")
@@ -490,7 +490,7 @@ def melesma_detect():
                 # print("GOOD")
             
             elif percent > 3 and percent < 5:
-                st.text("Score : NORMAL")
+                st.text("Score : MEDIUM")
                 st.image(image_calm, width = 100)
                 # print("normal")
 
