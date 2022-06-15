@@ -1,4 +1,6 @@
 import streamlit as st
+import streamlit_modal as modal
+import streamlit.components.v1 as components
 import cv2
 import dlib
 import matplotlib.pyplot as plt
@@ -587,14 +589,64 @@ def melesma_detect():
             st.write("วิธีที่ 4 - มาสก์หน้าด้วยใบบัวบก")
             st.write("วิธีที่ 5 - ทาครีมบำรุงที่มีสารไวท์เทนนิ่ง")
 
-def page_user_manual():
-    return
-
 st.set_page_config(page_title='APPLICATION SKIN TEST BY MOBILE CAMERA')
 st.sidebar.header('APPLICATION SKIN TEST BY MOBILE CAMERA')
 
-if st.sidebar.button("คู่มือการใช้งาน"):
-    page_user_manual()
+open_modal = st.sidebar.button("คู่มือการใช้งาน")
+if open_modal:
+    modal.open()
+
+if modal.is_open():
+    with modal.container():
+        components.html(
+        """
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+        </style>
+        <div style="width: 700px; height: 800px; overflow-y: scroll; scrollbar-arrow-color:blue; scrollbar-face-color: #e7e7e7; scrollbar-3dlight-color: #a0a0a0; scrollbar-darkshadow-color:#888888">  
+        <div>
+            <h1>คู่มือการใช้งาน<h1>
+            <hr width="100%">
+        </div>
+        <div>
+            <p>ขั้นตอนที่ 1 : ผู้ใช้งานต้องถ่ายภาพใบหน้าตนเอง เป็นภาพหน้าตรง แสงสีขาว</p>
+            <img src="https://drive.google.com/uc?id=1AjTQeBQg7iuVaYtZE0N9Cm8peyzWp4Zt" class="center">
+        </div>
+        <div>
+            <p>ขั้นตอนที่ 2 : ในส่วนของการเลือกโมเดล ให้ผู้ใช้งานเลือกโมเดลที่ต้องการตรวจสอบ</p>
+            <img src="https://drive.google.com/uc?id=16jjujpA2QFC7eOB7WJ_KOf3j0aOBHK_b" class="center">
+        </div>
+        <div>
+            <p>ขั้นตอนที่ 3 : ผู้ใช้งานนำรูปภาพที่ถ่ายไว้ตามขั้นตอนที่ 1 โดยกดปุ่ม Browse file</p>
+            <img src="https://drive.google.com/uc?id=1uAPZw_dUKnFt1GK7dmAr88GB7sWAtKHM" width="690" height="300">
+        </div>
+        <div>
+            <p>ขั้นตอนที่ 4 : ผู้ใช้งานกดปุ่ม Analysis แล้ว Web Application จะทำการวิเคราะห์รูปภาพและสิ่งที่ต้องการตรวจจับ</p>
+            <img src="https://drive.google.com/uc?id=1NAjjM6p7qPIGo_CAGTuqEicb2b2JyCYj"width="720" height="550">
+            <p>     เมื่อรูปผู้ใช้งานถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง Upload Success</p>
+            <img src="https://drive.google.com/uc?id=1Svd0spFryw20Xzah9s7gANHvv-s095-g"width="720" height="550">
+            <p>     เมื่อรูปผู้ใช้งานไม่ถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง Picture Invalid</p>
+            <img src="https://drive.google.com/uc?id=19ykvntivz3rOWc3Khyo3qsNGaWrE5BMz"width="720" height="550">
+        </div>
+        <div>
+            <p>ขั้นตอนที่ 5 : ทาง Web Application จะขึ้นผลลัพธ์การตรวจจับและคำแนะนำ</p>
+            <img src="https://drive.google.com/uc?id=14f9dzVKghMjXcFxwFXBrc-G8N8ncyMLA" class="center">
+            <hr width="100%">
+        </div>            
+        <div>
+            <p>สาเหตุการแจ้งเตือน PICTURE INVALID</p>
+            <p>เนื่องจากรูปที่ผู้ใช้งานนำรูปมาไม่ถูกต้องตามเงื่อนไขที่ตั้งไว้ คือ ต้องใช้ภาพที่ติด คิ้ว ตา จมูก ปาก แก้ม และคาง</p>
+        </div>
+  
+        </div> 
+        """,
+        height=900,
+        )
 
 st.sidebar.header('Choose Prediction Model')
 
