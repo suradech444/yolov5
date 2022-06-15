@@ -12,7 +12,7 @@ try :
    datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
    landmark_detector = dlib.shape_predictor(datFile)
 
-   img_path = "PROJECT/test/testdlib2.jpg"
+   img_path = "PROJECT/test/test_2.jpg"
  
    #read with dlib
    img = dlib.load_rgb_image(img_path)
@@ -116,7 +116,6 @@ else:
       mask = r["masks"][:, :, i]
       contours = get_mask_contours(mask)
       for cnt in contours:
-         #cv2.polylines(img, [cnt], True, colors[i], 2)
          cv2.fillPoly(img, [cnt], (0,255,0))
 
          img = draw_mask(img, [cnt], (0,255,0))

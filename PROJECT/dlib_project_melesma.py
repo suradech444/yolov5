@@ -11,7 +11,7 @@ from mrcnn.m_rcnn import *
 # datFile =  "PROJECT/content/shape_predictor_68_face_landmarks.dat"
 # landmark_detector = dlib.shape_predictor(datFile)
 
-# img_path = "PROJECT/test/286010016_391782702969339_786024185441128866_n.jpg"
+# img_path = "PROJECT/test/t_8.jpg"
  
 # #read with dlib
 # img = dlib.load_rgb_image(img_path)
@@ -71,15 +71,15 @@ from mrcnn.m_rcnn import *
 
 # imsave('PROJECT/file.jpg',out)
 
-img = cv2.imread('PROJECT/test/testt.png', 0)
+# img = cv2.imread('PROJECT/file.jpg', 0)
 
-face_area = cv2.countNonZero(img)
+# face_area = cv2.countNonZero(img)
 
-# print("Number of dark pixels:")
-# print(face_area)
+# # # print("Number of dark pixels:")
+# # # print(face_area)
 
-height, width = img.shape
-n_total = height * width
+# height, width = img.shape
+# n_total = height * width
 
 # print("Percentage of dark pixels:")
 # print(face_area / n_total * 100)
@@ -130,20 +130,20 @@ for i in range(object_count):
 plt.imshow(img)
 plt.show()
 
-# print(count)
+print(count)
 
-print("Area of pic")
-print(n_total)
+# print("Area of pic")
+# print(n_total)
 
-print("Face area pixels:")
-print(face_area)
+# print("Face area pixels:")
+# print(face_area)
 
-print("Percentage of face pixels:")
-print(face_area / n_total * 100)
+# print("Percentage of face pixels:")
+# print(face_area / n_total * 100)
 
 print("area acne pixels:")
 print(areaacne)
 
-percent = areaacne/face_area *100
+# percent = areaacne/face_area *100
 
-print("PERCENT : "'%.2f' %(percent))
+# print("PERCENT : "'%.2f' %(percent))
