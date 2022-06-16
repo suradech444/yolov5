@@ -639,10 +639,14 @@ if modal.is_open():
             <hr width="100%">
         </div>            
         <div>
-            <p>สาเหตุการแจ้งเตือน PICTURE INVALID</p>
+            <h2>สาเหตุการแจ้งเตือน PICTURE INVALID</h2>
             <p>เนื่องจากรูปที่ผู้ใช้งานนำรูปมาไม่ถูกต้องตามเงื่อนไขที่ตั้งไว้ คือ ต้องใช้ภาพที่ติด คิ้ว ตา จมูก ปาก แก้ม และคาง</p>
+            <hr width="100%">
         </div>
-  
+        <div>
+            <h2>คลิปวิดีโอสาธิตการใช้งาน Web Application</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/V5iVwLMlR18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
         </div> 
         """,
         height=900,
