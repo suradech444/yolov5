@@ -82,10 +82,10 @@ def acne_detect():
         imsave('file.jpg',out)
 
     except:
-        st.error('PICTURE INVALID')
+        st.error('รูปไม่ถูกต้อง')
 
     else:
-        st.success("Upload Success")
+        st.success("อัพโหลดเสร็จสิ้น")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -139,9 +139,9 @@ def acne_detect():
 
             if percent < 3:
                 print(count)
-                st.write("Detect acne count : "'%d' %(count))
-                st.write("Percent acne on face : "'%.2f' %(percent))
-                st.text("Score : GOOD")
+                st.write("จำนวนเม็ดสิวที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์สิวบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ดี")
                 st.image(image_hp, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -154,9 +154,9 @@ def acne_detect():
 
             
             elif percent > 3 and percent < 5:
-                st.write("Detect acne count : "'%d' %(count))
-                st.write("Percent acne on face : "'%.2f' %(percent))
-                st.text("Score : MEDIUM")
+                st.write("จำนวนเม็ดสิวที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์สิวบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ปานกลาง")
                 st.image(image_calm, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -168,9 +168,9 @@ def acne_detect():
                 st.write("วิธีที่ 6 - ใช้ผลิตภัณฑ์ที่ช่วยดูแลปัญหาผิว")
 
             elif percent > 5:
-                st.write("Detect acne count : "'%d' %(count))
-                st.write("Percent acne on face : "'%.2f' %(percent))
-                st.text("Score : BAD")
+                st.write("จำนวนเม็ดสิวที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์สิวบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : แย่")
                 st.image(image_sad, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -183,9 +183,9 @@ def acne_detect():
 
         except:
             image_hp = Image.open('emoji/happy.png')
-            st.write("Detected acne count : 0")
-            st.write("Percent acne on face : 0")
-            st.text("Score : GOOD")
+            st.write("จำนวนเม็ดสิวที่ตรวจจับได้ : 0")
+            st.write("เปอร์เซ็นต์สิวบนใบหน้า : 0")
+            st.text("เกณฑ์ : ดี")
             st.image(image_hp, width = 100)
             st.markdown("""___""")
             st.title("คำแนะนำ")
@@ -263,10 +263,10 @@ def freckles_detect():
         imsave('file.jpg',out)
 
     except:
-        st.error('PICTURE INVALID')
+        st.error('รูปภาพไม่ถูกต้อง')
 
     else:
-        st.success("Upload Success")
+        st.success("อัพโหลดเสร็จสิ้น")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -275,7 +275,7 @@ def freckles_detect():
             height, width = img.shape
             n_total = height * width
 
-            net = cv2.dnn.readNet('w2/best.onnx')
+            net = cv2.dnn.readNet('content/Model/w2/best.onnx')
 
             def format_yolov5(frame):
 
@@ -324,7 +324,7 @@ def freckles_detect():
                         boxes.append(box)
 
             class_list = []
-            with open("text/classes.txt", "r") as f:
+            with open("content/text/classes.txt", "r") as f:
                 class_list = [cname.strip() for cname in f.readlines()]
 
             indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.25, 0.45) 
@@ -365,9 +365,9 @@ def freckles_detect():
             image_sad = Image.open('emoji/sad.png')
 
             if percent < 3:
-                st.write("Detect freckles count : "'%d' %(count))
-                st.write("Percent freckles on face : "'%.2f' %(percent))
-                st.text("Score : GOOD")
+                st.write("จำนวนกระที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์กระบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ดี")
                 st.image(image_hp, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -377,9 +377,9 @@ def freckles_detect():
                 st.write("วิธีที่ 4 - หมั่นผลัดเซลล์ผิวด้วยสมุนไพร และ AHA จากผลไม้")
             
             elif percent > 3 and percent < 5:
-                st.write("Detect freckles count : "'%d' %(count))
-                st.write("Percent freckles on face : "'%.2f' %(percent))
-                st.text("Score : MEDIUM")
+                st.write("จำนวนกระที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์กระบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ปานกลาง")
                 st.image(image_calm, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -389,9 +389,9 @@ def freckles_detect():
                 st.write("วิธีที่ 4 - หมั่นผลัดเซลล์ผิวด้วยสมุนไพร และ AHA จากผลไม้")
 
             elif percent > 5:
-                st.write("Detect freckles count : "'%d' %(count))
-                st.write("Percent freckles on face : "'%.2f' %(percent))
-                st.text("Score : BAD")
+                st.write("จำนวนกระที่ตรวจจับได้ : "'%d' %(count))
+                st.write("เปอร์เซ็นต์กระบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : แย่")
                 st.image(image_sad, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -402,9 +402,9 @@ def freckles_detect():
 
         except:
             image_hp = Image.open('emoji/happy.png')
-            st.write("Detected freckles count : 0")
-            st.write("Percent freckles of face : 0")
-            st.text("Score : GOOD")
+            st.write("จำนวนกระที่ตรวจจับได้ : 0")
+            st.write("เปอร์เซ็นต์กระบนใบหน้า : 0")
+            st.text("เกณฑ์ : ดี")
             st.image(image_hp, width = 100)
             st.markdown("""___""")
             st.title("คำแนะนำ")
@@ -481,11 +481,11 @@ def melesma_detect():
         imsave('file.jpg',out)
 
     except:
-        st.error('PICTURE INVALID')
+        st.error('รูปไม่ถูกต้อง')
         #print("Invalid")
 
     else:
-        st.success("Upload Success")
+        st.success("อัพโหลดเสร็จสิ้น")
         try:
             img = cv2.imread('file.jpg', 0)
 
@@ -541,8 +541,8 @@ def melesma_detect():
             image_sad = Image.open('emoji/sad.png')
 
             if percent < 3:
-                st.write("Percent melesma on face : "'%.2f' %(percent))
-                st.text("Score : GOOD")
+                st.write("เปอร์เซ็นต์ฝ้าบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ดี")
                 st.image(image_hp, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -553,8 +553,8 @@ def melesma_detect():
                 st.write("วิธีที่ 5 - ทาครีมบำรุงที่มีสารไวท์เทนนิ่ง")
             
             elif percent > 3 and percent < 5:
-                st.write("Percent melesma on face : "'%.2f' %(percent))
-                st.text("Score : MEDIUM")
+                st.write("เปอร์เซ็นต์ฝ้าบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : ปานกลาง")
                 st.image(image_calm, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -565,8 +565,8 @@ def melesma_detect():
                 st.write("วิธีที่ 5 - ทาครีมบำรุงที่มีสารไวท์เทนนิ่ง")
 
             elif percent > 5:
-                st.write("Percent melesma on face : "'%.2f' %(percent))
-                st.text("Score : BAD")
+                st.write("เปอร์เซ็นต์ฝ้าบนใบหน้า : "'%.2f' %(percent))
+                st.text("เกณฑ์ : แย่")
                 st.image(image_sad, width = 100)
                 st.markdown("""___""")
                 st.title("คำแนะนำ")
@@ -578,8 +578,8 @@ def melesma_detect():
 
         except:
             image_hp = Image.open('emoji/happy.png')
-            st.write("Percent melesma on face : 0")
-            st.text("Score : GOOD")
+            st.write(" เปอร์เซ็นต์ฝ้าบนใบหน้า : 0")
+            st.text("เกณฑ์ : ดี")
             st.image(image_hp, width = 100)
             st.markdown("""___""")
             st.title("คำแนะนำ")
@@ -589,8 +589,8 @@ def melesma_detect():
             st.write("วิธีที่ 4 - มาสก์หน้าด้วยใบบัวบก")
             st.write("วิธีที่ 5 - ทาครีมบำรุงที่มีสารไวท์เทนนิ่ง")
 
-st.set_page_config(page_title='APPLICATION SKIN TEST BY MOBILE CAMERA')
-st.sidebar.header('APPLICATION SKIN TEST BY MOBILE CAMERA')
+st.set_page_config(page_title='แอปพลิเคชันตรวจสอบคุณภาพผิวหน้าด้วยกล้องโทรศัพท์มือถือ')
+st.sidebar.header('แอปพลิเคชันตรวจสอบคุณภาพผิวหน้าด้วยกล้องโทรศัพท์มือถือ')
 
 open_modal = st.sidebar.button("คู่มือการใช้งาน")
 if open_modal:
@@ -619,78 +619,77 @@ if modal.is_open():
         </div>
         <div>
             <p>ขั้นตอนที่ 2 : ในส่วนของการเลือกโมเดล ให้ผู้ใช้งานเลือกโมเดลที่ต้องการตรวจสอบ</p>
-            <img src="https://drive.google.com/uc?id=16jjujpA2QFC7eOB7WJ_KOf3j0aOBHK_b" class="center">
+            <img src="https://drive.google.com/uc?id=1FYQWuxzAk5zXnCLkJx-enlH4M_2PixIx" class="center">
         </div>
         <div>
             <p>ขั้นตอนที่ 3 : ผู้ใช้งานนำรูปภาพที่ถ่ายไว้ตามขั้นตอนที่ 1 โดยกดปุ่ม Browse file</p>
-            <img src="https://drive.google.com/uc?id=1uAPZw_dUKnFt1GK7dmAr88GB7sWAtKHM" width="690" height="300">
+            <img src="https://drive.google.com/uc?id=1T8bvYMXkzKZTAfaH_DpOVTwIz1_tQ8jU" width="690" height="300">
         </div>
         <div>
-            <p>ขั้นตอนที่ 4 : ผู้ใช้งานกดปุ่ม Analysis แล้ว Web Application จะทำการวิเคราะห์รูปภาพและสิ่งที่ต้องการตรวจจับ</p>
-            <img src="https://drive.google.com/uc?id=1NAjjM6p7qPIGo_CAGTuqEicb2b2JyCYj"width="720" height="550">
-            <p>     เมื่อรูปผู้ใช้งานถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง Upload Success</p>
-            <img src="https://drive.google.com/uc?id=1Svd0spFryw20Xzah9s7gANHvv-s095-g"width="720" height="550">
-            <p>     เมื่อรูปผู้ใช้งานไม่ถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง Picture Invalid</p>
-            <img src="https://drive.google.com/uc?id=19ykvntivz3rOWc3Khyo3qsNGaWrE5BMz"width="720" height="550">
+            <p>ขั้นตอนที่ 4 : ผู้ใช้งานกดปุ่ม 'วิเคราะห์' แล้ว Web Application จะทำการวิเคราะห์รูปภาพและสิ่งที่ต้องการตรวจจับ</p>
+            <img src="https://drive.google.com/uc?id=1MJOCC5d2So2zQ6DQV7ORwJSUNOKpJf12"width="720" height="550">
+            <p>     เมื่อรูปผู้ใช้งานถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง 'อัพโหลดเสร็จสิ้น'</p>
+            <img src="https://drive.google.com/uc?id=1H13_kDBumIrwHo95--w1RUH_F8gC0L1q"width="720" height="550">
+            <p>     เมื่อรูปผู้ใช้งานไม่ถูกต้องตามเงื่อนไข Web Apllication จะแจ้ง 'รูปไม่ถูกต้อง'</p>
+            <img src="https://drive.google.com/uc?id=1UKMZmQxoxxJDBwgma1r1IKd8lG7Jdo2z"width="720" height="550">
         </div>
         <div>
             <p>ขั้นตอนที่ 5 : ทาง Web Application จะขึ้นผลลัพธ์การตรวจจับและคำแนะนำ</p>
-            <img src="https://drive.google.com/uc?id=14f9dzVKghMjXcFxwFXBrc-G8N8ncyMLA" class="center">
+            <img src="https://drive.google.com/uc?id=1xRa3V655hwIXQlPFTrap4iUtUeznxRQX" class="center">
             <hr width="100%">
         </div>            
         <div>
-            <h2>สาเหตุการแจ้งเตือน PICTURE INVALID</h2>
+            <h2>สาเหตุการแจ้งเตือน 'รูปไม่ถูกต้อง'</h2>
             <p>เนื่องจากรูปที่ผู้ใช้งานนำรูปมาไม่ถูกต้องตามเงื่อนไขที่ตั้งไว้ คือ ต้องใช้ภาพที่ติด คิ้ว ตา จมูก ปาก แก้ม และคาง</p>
             <hr width="100%">
         </div>
         <div>
             <h2>คลิปวิดีโอสาธิตการใช้งาน Web Application</h2>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/V5iVwLMlR18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Ry-M8pIwnB8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         </div> 
         """,
         height=900,
         )
 
-st.sidebar.header('Choose Prediction Model')
 
-model_choice = st.sidebar.selectbox('Select Prediction Model', ['Acne', 'Freckles', 'Melesma'], key='1')
+model_choice = st.sidebar.selectbox('กรุณาเลือกสิ่งที่ต้องการตรวจ', ['สิว', 'กระ', 'ฝ้า'], key='1')
 
-if model_choice == 'Acne':
+if model_choice == 'สิว':
     
-    st.title("Acne")
-    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    st.title("การตรวจสอบ 'สิว'")
+    image_file = st.file_uploader("อัพโหลดรูปภาพ", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectacne",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
 
-    if st.button('Analysis'):
+    if st.button('วิเคราะห์'):
         acne_detect()
 
-elif model_choice == 'Freckles':
+elif model_choice == 'กระ':
 
-    st.title("Freckles")
-    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    st.title("การตรวจสอบ 'กระ'")
+    image_file = st.file_uploader("อัพโหลดรูปภาพ", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectfk",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
 
-    if st.button('Analysis'):
+    if st.button('วิเคราะห์'):
         freckles_detect()
     
-elif model_choice == 'Melesma':
+elif model_choice == 'ฝ้า':
 
-    st.title("Melesma")
-    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+    st.title("การตรวจสอบ 'ฝ้า'")
+    image_file = st.file_uploader("อัพโหลดรูปภาพ", type=["png","jpg","jpeg"])
     imgname = "imgdetect.jpg"
     if image_file is not None:
         st.image(load_image(image_file),width=300)
         with open(os.path.join("imgdetectmelesma",imgname),"wb") as f: 
             f.write(image_file.getbuffer())         
 
-    if st.button("Analysis"):
+    if st.button("วิเคราะห์"):
         melesma_detect()
